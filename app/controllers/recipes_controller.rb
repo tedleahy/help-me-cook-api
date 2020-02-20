@@ -14,6 +14,10 @@ class RecipesController < ApplicationController
     render json: Recipe.all
   end
 
+  def show
+    render json: Recipe.find(params[:id])
+  end
+
   private
 
   def recipe_params
