@@ -1,13 +1,17 @@
 require 'rails_helper'
 
 describe Ingredient do
-  let(:ingredient) { create(:ingredient) }
-
   it 'has a valid factory' do
-    expect(ingredient).to be_valid
+    expect(build(:ingredient)).to be_valid
+  end
+
+  it 'must have a name' do
+    ingredient = build(:ingredient, name: nil)
+    expect(ingredient).not_to be_valid
   end
 
   context 'with an association to a recipe' do
+    let(:ingredient) { create(:ingredient) }
     let(:recipe) { create(:recipe) }
     let!(:ingredient_recipe) { create(:ingredient_recipe, ingredient: ingredient, recipe: recipe) }
 

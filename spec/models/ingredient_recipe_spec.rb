@@ -1,9 +1,17 @@
 require 'rails_helper'
 
 describe IngredientRecipe do
-  let(:ingredient_recipe) { create(:ingredient_recipe) }
-
   it 'has a valid factory' do
-    expect(ingredient_recipe).to be_valid
+    expect(build(:ingredient_recipe)).to be_valid
+  end
+
+  it 'must have an associated ingredient' do
+    ingredient_recipe = build(:ingredient_recipe, ingredient: nil)
+    expect(ingredient_recipe).not_to be_valid
+  end
+
+  it 'must have an associated recipe' do
+    ingredient_recipe = build(:ingredient_recipe, recipe: nil)
+    expect(ingredient_recipe).not_to be_valid
   end
 end

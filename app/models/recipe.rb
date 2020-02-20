@@ -2,6 +2,8 @@ class Recipe < ApplicationRecord
   has_many :ingredient_recipes
   has_many :ingredients, through: :ingredient_recipes
 
+  validates :name, presence: true
+
   def self.create_with_ingredients(recipe, ingredients)
     created_recipe = Recipe.create(recipe)
     { recipe: created_recipe,
