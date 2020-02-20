@@ -6,11 +6,15 @@ class Recipe < ApplicationRecord
 
   def self.create_with_ingredients(recipe, ingredients)
     created_recipe = Recipe.create(recipe)
+    return false unless created_recipe.valid?
+
     { recipe: created_recipe,
       ingredients: create_ingredients_and_associations(created_recipe, ingredients) }
   end
 
   def self.create_ingredients_and_associations(created_recipe, ingredients)
+    return false unless created_recipe.valid?
+
     ingredients.map do |ingredient|
       created_ingredient = Ingredient.create(name: ingredient[:name])
       IngredientRecipe.create(recipe_id: created_recipe.id,
