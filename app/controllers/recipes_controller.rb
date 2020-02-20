@@ -22,6 +22,10 @@ class RecipesController < ApplicationController
     render json: Recipe.find(params[:id])
   end
 
+  def show_with_ingredients
+    render json: RecipeSerializer.new(Recipe.find(params[:id]))
+  end
+
   private
 
   def recipe_params
