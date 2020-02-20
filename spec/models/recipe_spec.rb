@@ -22,3 +22,27 @@ describe Recipe do
     end
   end
 end
+
+describe Recipe, '.create_with_ingredients' do
+  let(:recipe) { build(:recipe).attributes.compact }
+  let(:ingredients) do
+    [{ name: 'ingredient 1', amount: 1, amount_unit: 'tbsp' },
+     { name: 'ingredient 2' }]
+  end
+
+  let!(:output) { Recipe.create_with_ingredients(recipe, ingredients) }
+
+  it 'creates a recipe with correct attributes' do
+    expect(output[:recipe].slice(:name, :image_url)).to eq(recipe)
+  end
+
+  it 'creates ingredients with correct attributes' do
+    expect(output[:ingredients].map { |i| i.slice(:name) })
+      .to eq(ingredients.map { |i| i.slice(:name).stringify_keys })
+  end
+
+  it 'creates associations between the recipe and ingredients' do
+    expect(output[:recipe].ingredients).to eq(output[:ingredients])
+    expect(output[:ingredients].first.recipes.first).to eq(output[:recipe])
+  end
+end
