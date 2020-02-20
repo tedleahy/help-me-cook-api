@@ -10,6 +10,10 @@ class RecipesController < ApplicationController
     end
   end
 
+  def index
+    render json: Recipe.all
+  end
+
   private
 
   def recipe_params
