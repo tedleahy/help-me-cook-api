@@ -15,3 +15,16 @@ describe IngredientRecipe do
     expect(ingredient_recipe).not_to be_valid
   end
 end
+
+describe Ingredient, '.ingredient_name_and_amount' do
+  it "returns a hash containing the ingredient's name, amount and amount_unit" do
+    ingredient = build(:ingredient)
+    ingredient_recipe = build(:ingredient_recipe, ingredient: ingredient)
+
+    expect(ingredient_recipe.ingredient_name_and_amount).to eq(
+      name: ingredient.name,
+      amount: ingredient_recipe.amount,
+      amount_unit: ingredient_recipe.amount_unit
+    )
+  end
+end

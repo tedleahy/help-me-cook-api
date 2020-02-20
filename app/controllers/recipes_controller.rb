@@ -14,6 +14,10 @@ class RecipesController < ApplicationController
     render json: Recipe.all
   end
 
+  def index_with_ingredients
+    render json: RecipeSerializer.new(Recipe.all)
+  end
+
   def show
     render json: Recipe.find(params[:id])
   end
