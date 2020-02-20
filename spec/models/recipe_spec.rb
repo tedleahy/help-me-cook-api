@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Recipe, type: :model do
+describe Recipe do
   let(:recipe) { create(:recipe) }
 
   it 'has a valid factory' do
