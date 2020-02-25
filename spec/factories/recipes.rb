@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :recipe do
     name { Faker::Food.dish }
     image_url { Faker::Internet.url(host: 'example.com', path: '/recipe_img.jpg') }
+    instructions { Faker::Lorem.paragraphs(number: 3) }
 
     factory :recipe_with_ingredients do
       transient do

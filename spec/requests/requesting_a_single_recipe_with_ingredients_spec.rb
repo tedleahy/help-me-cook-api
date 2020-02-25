@@ -13,6 +13,7 @@ describe 'Requesting a single recipe, with ingredients' do
           attributes: {
             name: recipe.name,
             image_url: recipe.image_url,
+            instructions: recipe.instructions,
             ingredients: recipe.ingredient_recipes.map(&:ingredient_name_and_amount)
           }
         }

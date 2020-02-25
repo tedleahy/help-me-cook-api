@@ -38,7 +38,7 @@ describe Recipe, '.create_with_ingredients' do
   let!(:output) { Recipe.create_with_ingredients(recipe, ingredients) }
 
   it 'creates a recipe with correct attributes' do
-    expect(output[:recipe].slice(:name, :image_url)).to eq(recipe)
+    expect(output[:recipe].slice(:name, :image_url, :instructions)).to eq(recipe)
   end
 
   it 'creates ingredients with correct attributes' do
