@@ -14,7 +14,7 @@ describe 'Creating a Recipe' do
         name: recipe[:name],
         image_url: recipe[:image_url],
         ingredients: [
-          { name: 'ingredient 1', amount: 1, amount_unit: 'grams' },
+          { name: 'ingredient 1', amount: 1, amount_unit: 'g' },
           { name: 'ingredient 2' }
         ]
       }.to_json

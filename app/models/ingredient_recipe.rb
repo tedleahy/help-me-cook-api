@@ -1,5 +1,5 @@
 class IngredientRecipe < ApplicationRecord
-  MEASUREMENT_UNITS = %w[ml grams tbsp tsp whole].freeze
+  MEASUREMENT_UNITS = %w[ml g tbsp tsp whole].freeze
 
   belongs_to :ingredient
   belongs_to :recipe
