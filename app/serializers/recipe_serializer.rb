@@ -4,6 +4,6 @@ class RecipeSerializer
   attributes :name, :image_url, :instructions
 
   attribute :ingredients do |recipe|
-    recipe.ingredient_recipes.map(&:ingredient_name_and_amount)
+    recipe.ingredient_recipes.map(&:ingredient_details)
   end
 end

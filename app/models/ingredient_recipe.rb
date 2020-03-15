@@ -4,8 +4,9 @@ class IngredientRecipe < ApplicationRecord
   belongs_to :ingredient
   belongs_to :recipe
 
-  def ingredient_name_and_amount
-    { name: ingredient.name,
+  def ingredient_details
+    { id: ingredient.id,
+      name: ingredient.name,
       amount: amount,
       amount_unit: amount_unit }
   end
