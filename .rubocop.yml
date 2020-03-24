@@ -6,11 +6,6 @@ Layout/LineLength:
   Exclude:
     - "db/seeds.rb"
 
-Rails/Output:
-  Enabled: true
-  Exclude:
-    - "db/seeds.rb"
-
 Metrics/BlockLength:
   Enabled: true
   Exclude:
@@ -21,8 +16,16 @@ Rails/FilePath:
   Exclude:
     - "config/environments/development.rb"
 
-Style/FrozenStringLiteralComment:
+Rails/Output:
+  Enabled: true
+  Exclude:
+    - "db/seeds.rb"
+
+Rails/UniqueValidationWithoutIndex:
   Enabled: false
 
 Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
   Enabled: false
