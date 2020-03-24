@@ -1,0 +1,28 @@
+require: rubocop-rails
+
+Layout/LineLength:
+  Enabled: true
+  Max: 120
+  Exclude:
+    - "db/seeds.rb"
+
+Rails/Output:
+  Enabled: true
+  Exclude:
+    - "db/seeds.rb"
+
+Metrics/BlockLength:
+  Enabled: true
+  Exclude:
+    - "spec/**/*"
+
+Rails/FilePath:
+  Enabled: true
+  Exclude:
+    - "config/environments/development.rb"
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false

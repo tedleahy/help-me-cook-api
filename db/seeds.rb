@@ -90,7 +90,7 @@ recipes = [
       { name: 'red cabbage', amount: 0.5, amount_unit: 'whole' },
       { name: 'limes', amount: 4, amount_unit: 'whole' },
       { name: 'corn tortillas', amount: 8, amount_unit: 'whole' },
-      { name: 'bunch of coriander', amount: 1, amount_unit: 'whole' },
+      { name: 'bunch of coriander', amount: 1, amount_unit: 'whole' }
     ],
     instructions: [
       'Start by making your mango salsa. Dice your mango into small chunks, finely chop your jalapeños and mint then mix together in a bowl. Squeeze in your lime and add a pinch of salt, pepper, sugar and a drizzle of olive oil. Set aside.',
@@ -204,7 +204,7 @@ recipes = [
       'While the veg and wellington are cooking, start making the onion gravy! Slice the onions finely, add a generous glug of oil into the pan and cook the onions very slowly on a low heat until they are super soft and almost mushy.',
       'Once the onions are soft, add the crushed garlic and vinegar and cook it for a further minute. Next, add the flour and stir for another minute until a paste almost forms then add the vegetable stock and stir well to ensure there are no lumps in your gravy! Add the teaspoons of marmite and stir well.',
       'Strain your gravy and put in a gravy boat, but keep the onions as they make a delicious addition to your meal.',
-      'Take the wellington and broccoli out of the oven and get ready to plate up! Place your broccoli on the plate, slice into the wellington with a sharp knife and put it on top of the broccoli. Add the onions to your plate and pour the gravy on top for the perfect meatless wellington dinner.',
+      'Take the wellington and broccoli out of the oven and get ready to plate up! Place your broccoli on the plate, slice into the wellington with a sharp knife and put it on top of the broccoli. Add the onions to your plate and pour the gravy on top for the perfect meatless wellington dinner.'
     ]
   }
 ]
