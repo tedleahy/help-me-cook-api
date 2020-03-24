@@ -16,12 +16,13 @@ describe IngredientRecipe do
   end
 end
 
-describe Ingredient, '.ingredient_name_and_amount' do
+describe Ingredient, '.ingredient_details' do
   it "returns a hash containing the ingredient's name, amount and amount_unit" do
     ingredient = build(:ingredient)
     ingredient_recipe = build(:ingredient_recipe, ingredient: ingredient)
 
-    expect(ingredient_recipe.ingredient_name_and_amount).to eq(
+    expect(ingredient_recipe.ingredient_details).to eq(
+      id: ingredient.id,
       name: ingredient.name,
       amount: ingredient_recipe.amount,
       amount_unit: ingredient_recipe.amount_unit
