@@ -27,12 +27,15 @@ class RecipesController < ApplicationController
   end
 
   def search_by_ingredients
-    recipes = Recipe.all.select do |recipe|
-      # select where the recipe ingredients contain all ingredients from params[:ingredient_names]
-      (recipe.ingredients.map(&:name) - params[:ingredient_names]).empty?
+    if params[:ingredient_names].to_a.empty?
+      render json: { error: 'No search ingredients provided.' }
+    else
+      recipes = Recipe.all.select do |recipe|
+        # select where the recipe ingredients contain all ingredients from params[:ingredient_names]
+        (recipe.ingredients.map(&:name) - params[:ingredient_names]).empty?
+      end
+      render json: RecipeSerializer.new(recipes)
     end
-
-    render json: RecipeSerializer.new(recipes)
   end
 
   private

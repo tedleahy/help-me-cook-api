@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 describe 'Searching for Recipes that contain a list of ingredients' do
-  subject(:response_body_data) do
+  subject(:response_body) do
     headers = { 'CONTENT_TYPE' => 'application/json' }
     post '/search_recipes_by_ingredients', params: params, headers: headers
-    JSON.parse(response.body)['data']
+    JSON.parse(response.body)
   end
 
   let(:search_ingredients) { %w[carrots onions mince potatoes stock chopped\ tomatoes] }
@@ -35,14 +35,14 @@ describe 'Searching for Recipes that contain a list of ingredients' do
 
   context 'When sending an empty list of ingredients' do
     let(:params) { { ingredient_names: [] }.to_json }
-    it 'returns an empty JSON array' do
-      expect(response_body_data).to eq([])
+    it 'returns an error to the client' do
+      expect(response_body['error']).to eq('No search ingredients provided.')
     end
   end
 
   context 'When sending a non-empty list of ingredients' do
     let(:params) { { ingredient_names: search_ingredients }.to_json }
-    let(:returned_recipe_names) { response_body_data.map { |recipe| recipe['attributes']['name'] } }
+    let(:returned_recipe_names) { response_body['data'].map { |recipe| recipe['attributes']['name'] } }
 
     it 'returns recipes that use no more ingredients than the searched ones' do
       expect(returned_recipe_names).to include(shepherds_pie.name, bolognese.name)
