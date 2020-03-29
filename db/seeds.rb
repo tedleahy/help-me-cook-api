@@ -206,6 +206,26 @@ recipes = [
       'Strain your gravy and put in a gravy boat, but keep the onions as they make a delicious addition to your meal.',
       'Take the wellington and broccoli out of the oven and get ready to plate up! Place your broccoli on the plate, slice into the wellington with a sharp knife and put it on top of the broccoli. Add the onions to your plate and pour the gravy on top for the perfect meatless wellington dinner.',
     ]
+  },
+  {
+    name: "Shepherd's Pie",
+    ingredients: [
+      { name: 'carrots', amount: 100, amount_unit: 'g' },
+      { name: 'onions', amount: 2, amount_unit: 'whole' },
+      { name: 'mince', amount: 400, amount_unit: 'g' },
+      { name: 'potatoes', amount: 200, amount_unit: 'g' },
+      { name: 'stock', amount: 500, amount_unit: 'ml' },
+      { name: 'chopped tomatoes', amount: 400, amount_unit: 'g' }
+    ]
+  },
+  {
+    name: 'Bolognese',
+    ingredients: [
+      { name: 'carrots', amount: 100, amount_unit: 'g' },
+      { name: 'onions', amount: 2, amount_unit: 'whole' },
+      { name: 'mince', amount: 400, amount_unit: 'g' },
+      { name: 'chopped tomatoes', amount: 400, amount_unit: 'g' }
+    ]
   }
 ]
 
