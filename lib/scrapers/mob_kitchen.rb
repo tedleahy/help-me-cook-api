@@ -84,7 +84,7 @@ end
 def filter_ingredient_name(name)
   name.downcase
       .sub(/\s*-*\s*£.*\s*/, '')
-      .strip
+      .sub(/[[:space:]]*$/, '') # remove ALL trailing spaces, not just ASCII ones
 end
 
 main
