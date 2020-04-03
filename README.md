@@ -1,24 +1,22 @@
-# README
+# HelpMeCook
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Set up for development:
 
-Things you may want to cover:
+- Install Ruby 2.6.5
 
-* Ruby version
+```shell
+gem install bundler # if not already installed
+bundle # install gems
 
-* System dependencies
+# Setup database
+rails db:create db:migrate
 
-* Configuration
+# Import recipes
+rails runner lib/scrapers/mob_kitchen.rb
 
-* Database creation
+# Run tests
+bin/rspec
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Start development server
+rails s
+```
