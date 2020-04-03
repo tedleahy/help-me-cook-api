@@ -16,7 +16,7 @@ class Recipe < ApplicationRecord
     return false unless created_recipe.valid?
 
     ingredients.map do |ingredient|
-      created_ingredient = Ingredient.create(name: ingredient[:name])
+      created_ingredient = Ingredient.find_or_create_by(name: ingredient[:name])
       IngredientRecipe.create(recipe_id: created_recipe.id,
                               ingredient_id: created_ingredient.id,
                               amount: ingredient[:amount],
