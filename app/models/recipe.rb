@@ -1,5 +1,5 @@
 class Recipe < ApplicationRecord
-  has_many :ingredient_recipes, dependent: false
+  has_many :ingredient_recipes, dependent: :destroy
   has_many :ingredients, through: :ingredient_recipes
 
   validates :name, presence: true
