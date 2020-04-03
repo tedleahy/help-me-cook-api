@@ -60,24 +60,31 @@ end
 def process_ingredients(ingredients)
   return nil unless ingredients
 
-  ingredient_units = IngredientRecipe::MEASUREMENT_UNITS - ['whole']
+  ingredient_units = %w[ml l g tbsp tsp]
   ingredient_units_regex = "(#{ingredient_units.join('|')})"
   ingredient_with_unit_regex = Regexp.new('(\d+)\s*' + ingredient_units_regex + '\s[of\s]*(\D+)', Regexp::IGNORECASE)
 
   whole_ingredient_regex = /(\d+)\s(\D+)/
 
   ingredients.map do |ingredient|
+    name, amount, amount_unit = nil
+
     if ingredient.match(ingredient_with_unit_regex) # e.g. '3 tsp sugar', '100g flour', '50ml water'
       amount, amount_unit, name = ingredient.scan(ingredient_with_unit_regex).first
 
-      { name: filter_ingredient_name(name), amount: amount, amount_unit: amount_unit.downcase }
+      if amount_unit.downcase == 'l'
+        amount = amount.to_f * 1000
+        amount_unit = 'ml'
+      end
+
     elsif ingredient.match(whole_ingredient_regex) # e.g. '4 Aubergines', '2 Carrots'
       amount, name = ingredient.scan(whole_ingredient_regex).first
-
-      { name: filter_ingredient_name(name), amount: amount, amount_unit: 'whole' }
+      amount_unit = 'whole'
     else # no amount or unit, e.g. 'Salt', 'Pepper', 'Oil'
-      { name: filter_ingredient_name(ingredient), amount: nil, amount_unit: nil }
+      name = ingredient
     end
+
+    { name: filter_ingredient_name(name), amount: amount.to_f, amount_unit: amount_unit&.downcase }
   end
 end
 
