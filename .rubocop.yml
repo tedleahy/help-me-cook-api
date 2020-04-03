@@ -11,6 +11,10 @@ Metrics/BlockLength:
   Exclude:
     - "spec/**/*"
 
+Metrics/MethodLength:
+  Exclude:
+    - "lib/scrapers/*"
+
 Rails/FilePath:
   Enabled: true
   Exclude:
@@ -20,6 +24,7 @@ Rails/Output:
   Enabled: true
   Exclude:
     - "db/seeds.rb"
+    - "lib/scrapers/*"
 
 Rails/UniqueValidationWithoutIndex:
   Enabled: false
