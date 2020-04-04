@@ -4,8 +4,13 @@ require 'nokogiri'
 require 'open-uri'
 
 def main
+  Recipe.destroy_all
+  Ingredient.destroy_all
+
   urls = get_veggie_mob_urls
   urls.each do |url|
+    # next unless url == 'https://www.mobkitchen.co.uk/recipes/ginger-basil-noodles'
+
     recipe, ingredients = scrape_mob_kitchen(url)
 
     if recipe && ingredients
@@ -64,9 +69,11 @@ def process_ingredients(ingredients)
   ingredient_units_regex = "(#{ingredient_units.join('|')})"
   ingredient_with_unit_regex = Regexp.new('(\d+)\s*' + ingredient_units_regex + '\s[of\s]*(\D+)', Regexp::IGNORECASE)
 
-  whole_ingredient_regex = /(\d+)\s(\D+)/
+  whole_ingredient_regex = /(\d+)\s(.+)/
 
   ingredients.map do |ingredient|
+    next if not_ingredient(ingredient)
+
     name, amount, amount_unit = nil
 
     if ingredient.match(ingredient_with_unit_regex) # e.g. '3 tsp sugar', '100g flour', '50ml water'
@@ -80,6 +87,7 @@ def process_ingredients(ingredients)
     elsif ingredient.match(whole_ingredient_regex) # e.g. '4 Aubergines', '2 Carrots'
       amount, name = ingredient.scan(whole_ingredient_regex).first
       amount_unit = 'whole'
+
     else # no amount or unit, e.g. 'Salt', 'Pepper', 'Oil'
       name = ingredient
     end
@@ -89,9 +97,24 @@ def process_ingredients(ingredients)
 end
 
 def filter_ingredient_name(name)
+  trailing_characters = %w[: - ( )]
+  trailing_characters_regex = "[#{trailing_characters.join('|')}]$j"
+
   name.downcase
       .sub(/\s*-*\s*£.*\s*/, '')
       .sub(/[[:space:]]*$/, '') # remove ALL trailing spaces, not just ASCII ones
+      .sub('- included in mob kitchen ingredients.', '')
+      .sub(trailing_characters_regex, '')
+end
+
+def not_ingredient(ingredient)
+  ingredient.match(/- this covers absolutely.*/) ||
+    ingredient.match(/for the .*:*$/)
+
+  # [
+  # '- this covers absolutely everything.',
+  # '- this covers absolutely everything. all we assume you have in your kitchen beforehand is salt, pepper and olive oil.'
+  # ].include?(ingredient)
 end
 
 main
