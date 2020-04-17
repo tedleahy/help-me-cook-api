@@ -13,14 +13,14 @@ class Recipe < ApplicationRecord
   end
 
   def self.create_ingredients_and_associations(created_recipe, ingredients)
-    return false unless created_recipe.valid?
+    return false unless created_recipe.valid? && ingredients
 
     ingredients.map do |ingredient|
-      created_ingredient = Ingredient.create(name: ingredient[:name])
-      IngredientRecipe.create(recipe_id: created_recipe.id,
-                              ingredient_id: created_ingredient.id,
-                              amount: ingredient[:amount],
-                              amount_unit: ingredient[:amount_unit])
+      created_ingredient = FactoryBot.create(:ingredient, name: ingredient[:name])
+      FactoryBot.create(:ingredient_recipe, recipe_id: created_recipe.id,
+                                            ingredient_id: created_ingredient.id,
+                                            amount: ingredient[:amount],
+                                            amount_unit: ingredient[:amount_unit])
       created_ingredient
     end
   end

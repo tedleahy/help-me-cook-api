@@ -1,7 +1,7 @@
 class RecipesController < ApplicationController
   def create
-    recipe = recipe_params.slice(:name, :image_url)
-    ingredients = params[:ingredients]
+    recipe = recipe_params.except(:ingredients)
+    ingredients = recipe_params[:ingredients]
 
     if Recipe.create_with_ingredients(recipe, ingredients)
       render json: { message: "New recipe #{recipe[:name]} successfully created" }
@@ -38,6 +38,8 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    params.require(:recipe).permit(:name, :image_url)
+    load_params = params.require(:recipe).permit(:name, :image_url, instructions: [])
+    load_params[:ingredients] = params[:ingredients]
+    load_params.permit!
   end
 end
