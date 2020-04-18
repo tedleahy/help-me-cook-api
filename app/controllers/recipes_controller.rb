@@ -38,7 +38,8 @@ class RecipesController < ApplicationController
   private
 
   def recipe_params
-    load_params = params.require(:recipe).permit(:name, :image_url, instructions: [])
+    load_params = params.require(:recipe).permit(:name, :image_url, :servings, :source_url,
+                                                 :prep_time_mins, :cook_time_mins, :total_time_mins, instructions: [])
     load_params[:ingredients] = params[:ingredients]
     load_params.permit!
   end

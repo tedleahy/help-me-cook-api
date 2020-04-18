@@ -38,7 +38,8 @@ describe Recipe, '.create_with_ingredients' do
   let!(:output) { Recipe.create_with_ingredients(recipe, ingredients) }
 
   it 'creates a recipe with correct attributes' do
-    expect(output[:recipe].slice(:name, :image_url, :instructions)).to eq(recipe)
+    recipe_attributes = FactoryBot.attributes_for(:recipe).keys
+    expect(output[:recipe].slice(*recipe_attributes))
   end
 
   it 'creates ingredients with correct attributes' do
