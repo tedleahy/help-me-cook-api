@@ -3,8 +3,10 @@ class RecipesController < ApplicationController
     recipe = recipe_params.except(:ingredients)
     ingredients = recipe_params[:ingredients]
 
-    if Recipe.create_with_ingredients(recipe, ingredients)
-      render json: { message: "New recipe #{recipe[:name]} successfully created" }
+    created_recipe = Recipe.create_with_ingredients(recipe, ingredients)
+
+    if created_recipe
+      render json: RecipeSerializer.new(created_recipe[:recipe])
     else
       render json: { message: 'Error creating recipe' }
     end
