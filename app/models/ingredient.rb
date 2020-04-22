@@ -7,9 +7,9 @@ class Ingredient < ApplicationRecord
   # Parses an ingredient line into an ingredient hash
   # e.g. '100g of flour' -> {name: 'flour', amount: 100, amount_unit: 'g'}
   def self.parse(ingredient_line)
-    amount, amount_unit, name = ingredient_line
-                                .downcase
-                                .match(/^(\d*)\s*(ml|g|tsp|tbsp)?\s*o?f?\s?(.*)$/).to_a[1..]
+    amount, amount_unit, *, name = ingredient_line
+                                   .downcase
+                                   .match(/^(\d*)\s*(ml|g|tsp|tbsp)?\s*(of\s)?(.*)$/).to_a[1..]
     amount = amount.to_f
 
     if amount.zero? && !amount_unit
