@@ -13,7 +13,7 @@ class Ingredient < ApplicationRecord
                                       ^
                                       (\d*/?\d+)?
                                       \s*
-                                      (?:(ml|g|tsp|tbsp)\s)?
+                                      (?:(ml|l|g|tsp|tbsp)\s)?
                                       (?:of\s)?
                                       (.*)
                                       $
@@ -28,12 +28,15 @@ class Ingredient < ApplicationRecord
 end
 
 def parse_amount_unit(amount, amount_unit)
-  return [amount, amount_unit] unless amount_unit.nil?
-
-  if amount.zero?
-    amount = amount_unit = nil
-  else
-    amount_unit = 'whole'
+  if amount_unit == 'l'
+    amount *= 1000
+    amount_unit = 'ml'
+  elsif amount_unit.nil?
+    if amount.zero?
+      amount = amount_unit = nil
+    else
+      amount_unit = 'whole'
+    end
   end
 
   [amount, amount_unit]

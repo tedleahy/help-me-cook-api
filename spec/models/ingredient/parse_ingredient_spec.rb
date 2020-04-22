@@ -40,5 +40,14 @@ describe Ingredient do
 
       it { is_expected.to eq(expected_output) }
     end
+
+    context 'an ingredient measured in litres' do
+      let(:ingredient_str) { '1L stock' }
+      let(:expected_output) { { name: 'stock', amount: 1000, amount_unit: 'ml' } }
+
+      it { is_expected.to eq(expected_output) }
+    end
+      it { is_expected.to eq(expected_output) }
+    end
   end
 end
