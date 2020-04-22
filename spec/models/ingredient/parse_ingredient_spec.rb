@@ -47,6 +47,11 @@ describe Ingredient do
 
       it { is_expected.to eq(expected_output) }
     end
+
+    context 'an ingredient containing a vulgar unicode fraction (e.g. "½")' do
+      let(:ingredient_str) { '½ Red Cabbage' }
+      let(:expected_output) { { name: 'red cabbage', amount: 0.5, amount_unit: 'whole' } }
+
       it { is_expected.to eq(expected_output) }
     end
   end
