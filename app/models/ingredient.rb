@@ -7,19 +7,18 @@ class Ingredient < ApplicationRecord
   # Parses an ingredient line into an ingredient hash
   # e.g. '100g of flour' -> {name: 'flour', amount: 100, amount_unit: 'g'}
   def self.parse(ingredient_line)
-    amount, amount_unit, *, name = ingredient_line
-                                   .downcase
-                                   .match(%r{
+    amount, amount_unit, name = ingredient_line
+                                .downcase
+                                .match(%r{
                                       ^
                                       (\d*/?\d+)?
                                       \s*
-                                      (ml|g|tsp|tbsp)?
-                                      \s*
-                                      (of\s)?
+                                      (?:(ml|g|tsp|tbsp)\s)?
+                                      (?:of\s)?
                                       (.*)
                                       $
                                     }x)
-                                   .to_a[1..]
+                                .to_a[1..]
 
     amount = Fractional.new(amount || '').to_f
     amount, amount_unit = parse_amount_unit(amount, amount_unit)

@@ -33,5 +33,12 @@ describe Ingredient do
 
       it { is_expected.to eq(expected_output) }
     end
+
+    context 'a whole ingredient beginning with "g"' do
+      let(:ingredient_str) { '1 Green Chilli' }
+      let(:expected_output) { { name: 'green chilli', amount: 1, amount_unit: 'whole' } }
+
+      it { is_expected.to eq(expected_output) }
+    end
   end
 end
