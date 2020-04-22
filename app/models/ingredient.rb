@@ -25,6 +25,7 @@ class Ingredient < ApplicationRecord
                                       $
                                     }x)
                                 .to_a[1..]
+    name = remove_trailing_cost(name)
 
     amount = 0.5 if amount == 'half'
     amount = Fractional.new(amount || '').to_f
@@ -41,6 +42,10 @@ def ingredient_hash(name, amount, amount_unit)
     amount: amount,
     amount_unit: amount_unit
   }
+end
+
+def remove_trailing_cost(ingredient_name)
+  ingredient_name.sub(/\s-\s£\d+\.\d{2}$/, '')
 end
 
 def parse_amount_unit(amount, amount_unit)

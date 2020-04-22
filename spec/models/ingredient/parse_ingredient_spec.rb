@@ -104,5 +104,12 @@ describe Ingredient do
       it { is_expected.to eq(expected_output) }
     end
 
+    context 'an ingredient with its price at the end' do
+      let(:ingredient_str) { '100g flour - £0.20' }
+
+      it 'removes the price' do
+        expect(output[:name]).to eq('flour')
+      end
+    end
   end
 end
