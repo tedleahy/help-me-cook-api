@@ -2,16 +2,29 @@ require 'rails_helper'
 
 describe Ingredient do
   describe 'Ingredient.parse_ingredient' do
-    let(:inputs_and_outputs) do
-      [
-        ['100g of flour', { name: 'flour', amount: 100, amount_unit: 'g' }],
-        ['Salt', { name: 'salt', amount: nil, amount_unit: nil }]
-      ]
+    subject(:output) do
+      Ingredient.parse(ingredient_str)
     end
 
-    it 'correctly parses a given ingredient' do
-      expect(inputs_and_outputs.map { |input, output| Ingredient.parse(input) == output })
-        .to eq(Array.new(inputs_and_outputs.length, true))
+    context 'a simple ingredient' do
+      let(:ingredient_str) { '100g flour' }
+      let(:expected_output) { { name: 'flour', amount: 100.0, amount_unit: 'g' } }
+
+      it { is_expected.to eq(expected_output) }
+    end
+
+    context 'an ingredient containing "of"' do
+      let(:ingredient_str) { '100g of flour' }
+      let(:expected_output) { { name: 'flour', amount: 100, amount_unit: 'g' } }
+
+      it { is_expected.to eq(expected_output) }
+    end
+
+    context 'a one-word ingredient' do
+      let(:ingredient_str) { 'Salt' }
+      let(:expected_output) { { name: 'salt', amount: nil, amount_unit: nil } }
+
+      it { is_expected.to eq(expected_output) }
     end
   end
 end
