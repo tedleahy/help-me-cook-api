@@ -13,7 +13,10 @@ class Ingredient < ApplicationRecord
                                 .downcase
                                 .match(%r{
                                       ^
-                                      ((?:half|\d*\/?\d+))?
+                                      ((?:half |
+                                          \d*
+                                          (?:\/|\.?)
+                                          \d+))?
                                       \s*
                                       (?:(ml|l|pints?|g|tsp|teaspoons?|tbsp|tablespoons?)\s)?
                                       (?:of\s)?

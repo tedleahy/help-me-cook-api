@@ -96,5 +96,13 @@ describe Ingredient do
 
       it { is_expected.to eq(expected_output) }
     end
+
+    context 'an ingredient with a decimal amount' do
+      let(:ingredient_str) { '1.5 tsp baking soda' }
+      let(:expected_output) { { name: 'baking soda', amount: 1.5, amount_unit: 'tsp' } }
+
+      it { is_expected.to eq(expected_output) }
+    end
+
   end
 end
