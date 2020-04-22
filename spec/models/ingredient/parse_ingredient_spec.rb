@@ -54,5 +54,33 @@ describe Ingredient do
 
       it { is_expected.to eq(expected_output) }
     end
+
+    context 'an ingredient containing the full word "tablespoon", singular' do
+      let(:ingredient_str) { '1 Tablespoon Miso Paste' }
+      let(:expected_output) { { name: 'miso paste', amount: 1, amount_unit: 'tbsp' } }
+
+      it { is_expected.to eq(expected_output) }
+    end
+
+    context 'an ingredient containing the full word "tablespoons", plural' do
+      let(:ingredient_str) { '3 Tablespoons Miso Paste' }
+      let(:expected_output) { { name: 'miso paste', amount: 3, amount_unit: 'tbsp' } }
+
+      it { is_expected.to eq(expected_output) }
+    end
+
+    context 'an ingredient containing the full word "teaspoon", singular' do
+      let(:ingredient_str) { '1 Teaspoon sugar' }
+      let(:expected_output) { { name: 'sugar', amount: 1, amount_unit: 'tsp' } }
+
+      it { is_expected.to eq(expected_output) }
+    end
+
+    context 'an ingredient containing the full word "teaspoons", plural' do
+      let(:ingredient_str) { '3 teaspoons sugar' }
+      let(:expected_output) { { name: 'sugar', amount: 3, amount_unit: 'tsp' } }
+
+      it { is_expected.to eq(expected_output) }
+    end
   end
 end

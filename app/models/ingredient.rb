@@ -15,7 +15,7 @@ class Ingredient < ApplicationRecord
                                       ^
                                       (\d*/?\d+)?
                                       \s*
-                                      (?:(ml|l|g|tsp|tbsp)\s)?
+                                      (?:(ml|l|g|tsp|teaspoons*|tbsp|tablespoons*)\s)?
                                       (?:of\s)?
                                       (.*)
                                       $
@@ -38,10 +38,15 @@ def ingredient_hash(name, amount, amount_unit)
 end
 
 def parse_amount_unit(amount, amount_unit)
-  if amount_unit == 'l'
+  case amount_unit
+  when 'l'
     amount *= 1000
     amount_unit = 'ml'
-  elsif amount_unit.nil?
+  when 'tablespoon', 'tablespoons'
+    amount_unit = 'tbsp'
+  when 'teaspoon', 'teaspoons'
+    amount_unit = 'tsp'
+  when nil
     if amount.zero?
       amount = amount_unit = nil
     else
