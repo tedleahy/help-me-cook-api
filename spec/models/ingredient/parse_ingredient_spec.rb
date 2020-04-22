@@ -26,5 +26,12 @@ describe Ingredient do
 
       it { is_expected.to eq(expected_output) }
     end
+
+    context 'a half measurement of an ingredient' do
+      let(:ingredient_str) { '1/2 tsp garlic paste' }
+      let(:expected_output) { { name: 'garlic paste', amount: 0.5, amount_unit: 'tsp' } }
+
+      it { is_expected.to eq(expected_output) }
+    end
   end
 end

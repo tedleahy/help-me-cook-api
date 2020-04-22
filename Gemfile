@@ -11,6 +11,7 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
 gem 'rack-cors'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.1'
+gem 'fractional'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 
