@@ -15,7 +15,7 @@ class Ingredient < ApplicationRecord
                                       ^
                                       ((?:half|\d*\/?\d+))?
                                       \s*
-                                      (?:(ml|l|g|tsp|teaspoons*|tbsp|tablespoons*)\s)?
+                                      (?:(ml|l|pints?|g|tsp|teaspoons?|tbsp|tablespoons?)\s)?
                                       (?:of\s)?
                                       (?:an|a \s)?
                                       (.*)
@@ -25,6 +25,7 @@ class Ingredient < ApplicationRecord
 
     amount = 0.5 if amount == 'half'
     amount = Fractional.new(amount || '').to_f
+
     amount, amount_unit = parse_amount_unit(amount, amount_unit)
 
     ingredient_hash(name, amount, amount_unit)
@@ -48,6 +49,9 @@ def parse_amount_unit(amount, amount_unit)
     amount_unit = 'tbsp'
   when 'teaspoon', 'teaspoons'
     amount_unit = 'tsp'
+  when 'pint', 'pints'
+    amount *= 568.261
+    amount_unit = 'ml'
   when nil
     if amount.zero?
       amount = amount_unit = nil

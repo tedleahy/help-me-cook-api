@@ -89,6 +89,11 @@ describe Ingredient do
 
       it { is_expected.to eq(expected_output) }
     end
+
+    context 'an ingredient measured in pints' do
+      let(:ingredient_str) { '1 pint of whole milk' }
+      let(:expected_output) { { name: 'whole milk', amount: 568.261, amount_unit: 'ml' } }
+
       it { is_expected.to eq(expected_output) }
     end
   end
