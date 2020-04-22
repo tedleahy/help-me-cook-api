@@ -13,15 +13,17 @@ class Ingredient < ApplicationRecord
                                 .downcase
                                 .match(%r{
                                       ^
-                                      (\d*/?\d+)?
+                                      ((?:half|\d*\/?\d+))?
                                       \s*
                                       (?:(ml|l|g|tsp|teaspoons*|tbsp|tablespoons*)\s)?
                                       (?:of\s)?
+                                      (?:an|a \s)?
                                       (.*)
                                       $
                                     }x)
                                 .to_a[1..]
 
+    amount = 0.5 if amount == 'half'
     amount = Fractional.new(amount || '').to_f
     amount, amount_unit = parse_amount_unit(amount, amount_unit)
 

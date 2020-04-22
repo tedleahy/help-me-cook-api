@@ -82,5 +82,14 @@ describe Ingredient do
 
       it { is_expected.to eq(expected_output) }
     end
+
+    context 'an ingredient with the word "half" for its amount' do
+      let(:ingredient_str) { 'Half a Broccoli' }
+      let(:expected_output) { { name: 'broccoli', amount: 0.5, amount_unit: 'whole' } }
+
+      it { is_expected.to eq(expected_output) }
+    end
+      it { is_expected.to eq(expected_output) }
+    end
   end
 end
