@@ -104,6 +104,13 @@ describe Ingredient do
       it { is_expected.to eq(expected_output) }
     end
 
+    context 'an ingredient with an "x" after the amount' do
+      let(:ingredient_str) { '2 x Tins of Black Beans' }
+      let(:expected_output) { { name: 'tins of black beans', amount: 2, amount_unit: 'whole' } }
+
+      it { is_expected.to eq(expected_output) }
+    end
+
     context 'an ingredient with its price at the end' do
       context 'separated by a dash' do
         let(:ingredient_str) { '100g flour - £0.20' }

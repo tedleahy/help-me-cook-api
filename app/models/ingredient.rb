@@ -18,6 +18,7 @@ class Ingredient < ApplicationRecord
                                           (?:\/|\.?)
                                           \d+))?
                                       \s*
+                                      (?:x\s)?
                                       (?:(ml|l|pints?|g|tsp|teaspoons?|tbsp|tablespoons?)\s)?
                                       (?:of\s)?
                                       (?:an|a \s)?
