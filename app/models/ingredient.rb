@@ -45,7 +45,7 @@ def ingredient_hash(name, amount, amount_unit)
 end
 
 def remove_trailing_cost(ingredient_name)
-  ingredient_name.sub(/[[:space:]]-[[:space:]]£\d+\.\d{2}/, '')
+  ingredient_name.sub(/[[:space:]]?(-|:)[[:space:]]?£\d+\.\d{2}/, '')
 end
 
 def parse_amount_unit(amount, amount_unit)

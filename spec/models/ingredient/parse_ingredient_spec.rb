@@ -105,10 +105,20 @@ describe Ingredient do
     end
 
     context 'an ingredient with its price at the end' do
-      let(:ingredient_str) { '100g flour - £0.20' }
+      context 'separated by a dash' do
+        let(:ingredient_str) { '100g flour - £0.20' }
 
-      it 'removes the price' do
-        expect(output[:name]).to eq('flour')
+        it 'removes the price' do
+          expect(output[:name]).to eq('flour')
+        end
+      end
+
+      context 'separated by a colon' do
+        let(:ingredient_str) { '100g flour: £0.20' }
+
+        it 'removes the price' do
+          expect(output[:name]).to eq('flour')
+        end
       end
     end
   end
