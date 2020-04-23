@@ -83,6 +83,20 @@ describe Ingredient do
       it { is_expected.to eq(expected_output) }
     end
 
+    context 'an ingredient containing the full word "gram", singular' do
+      let(:ingredient_str) { '1 Gram sugar' }
+      let(:expected_output) { { name: 'sugar', amount: 1, amount_unit: 'g' } }
+
+      it { is_expected.to eq(expected_output) }
+    end
+
+    context 'an ingredient containing the full word "grams", plural' do
+      let(:ingredient_str) { '200 grams of spinach' }
+      let(:expected_output) { { name: 'spinach', amount: 200, amount_unit: 'g' } }
+
+      it { is_expected.to eq(expected_output) }
+    end
+
     context 'an ingredient with the word "half" for its amount' do
       let(:ingredient_str) { 'Half a Broccoli' }
       let(:expected_output) { { name: 'broccoli', amount: 0.5, amount_unit: 'whole' } }

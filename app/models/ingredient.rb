@@ -19,7 +19,7 @@ class Ingredient < ApplicationRecord
                                           \d+))?
                                       \s*
                                       (?:x\s)?
-                                      (?:(ml|l|pints?|g|tsp|teaspoons?|tbsp|tablespoons?)\s)?
+                                      (?:(ml|l|pints?|g|grams?|tsp|teaspoons?|tbsp|tablespoons?)\s)?
                                       (?:of\s)?
                                       (?:an|a \s)?
                                       (.*)
@@ -61,6 +61,8 @@ def parse_amount_unit(amount, amount_unit)
   when 'pint', 'pints'
     amount *= 568.261
     amount_unit = 'ml'
+  when 'gram', 'grams'
+    amount_unit = 'g'
   when nil
     if amount.zero?
       amount = amount_unit = nil
