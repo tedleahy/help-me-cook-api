@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'nokogiri'
 require 'open-uri'
 
@@ -8,8 +6,13 @@ def main
   Ingredient.destroy_all
 
   urls = get_veggie_mob_urls
-  urls.each do |url|
-    # next unless url == 'https://www.mobkitchen.co.uk/recipes/ginger-basil-noodles'
+  urls.each_with_index do |url, _index|
+    # TODO: handle ingredient groups
+    next if %w[
+      https://www.mobkitchen.co.uk/recipes/mushroom-cheese-tacos
+      https://www.mobkitchen.co.uk/recipes/buffting-bruschetta-3-ways
+      https://www.mobkitchen.co.uk/recipes/the-ultimate-homemade-falafel-pittas
+    ].include?(url)
 
     recipe, ingredients = scrape_mob_kitchen(url)
 
