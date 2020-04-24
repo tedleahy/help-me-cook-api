@@ -5,7 +5,7 @@ class Recipe < ApplicationRecord
   validates :name, presence: true
 
   def self.create_with_ingredients(recipe, ingredients)
-    recipe[:name] = recipe[:name].titleize
+    recipe[:name] = recipe[:name]&.titleize
     created_recipe = Recipe.create(recipe)
     return false unless created_recipe.valid?
 
