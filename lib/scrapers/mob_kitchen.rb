@@ -22,6 +22,8 @@ def main
       puts "Recipe name: #{recipe[:name]}"
       puts "ingredients: #{ingredients || nil}" if ingredients.nil?
     end
+
+    puts "\n--------------------\n\n"
   end
 end
 
@@ -47,7 +49,12 @@ def scrape_mob_kitchen(url)
   doc = Nokogiri::HTML(open(url, 'User-Agent' => 'Nooby'))
 
   ingredients = get_list_after_heading(doc, 'Ingredients')
-  ingredients = process_ingredients(ingredients)
+  old_ingredients = ingredients
+
+  ingredients = ingredients.map { |ingredient_str| Ingredient.parse(ingredient_str) }
+                           .reject { |ingredient| ingredient[:name].downcase.include?('total cost') }
+
+  old_ingredients.each_with_index { |x, i| puts "#{x} -> #{ingredients[i]}" }
 
   recipe = {
     name: doc.at('h1.Blog-title').children.text,
