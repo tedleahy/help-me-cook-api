@@ -29,7 +29,7 @@ describe Recipe do
 end
 
 describe Recipe, '.create_with_ingredients' do
-  let(:recipe) { build(:recipe).attributes.compact }
+  let(:recipe) { build(:recipe).attributes.compact.symbolize_keys }
   let(:ingredients) do
     [{ name: 'ingredient 1', amount: 1, amount_unit: 'tbsp' },
      { name: 'ingredient 2' }]
@@ -39,7 +39,11 @@ describe Recipe, '.create_with_ingredients' do
 
   it 'creates a recipe with correct attributes' do
     recipe_attributes = FactoryBot.attributes_for(:recipe).keys
-    expect(output[:recipe].slice(*recipe_attributes))
+
+    expect(output[:recipe].slice(*recipe_attributes)
+                          .symbolize_keys
+                          .keys)
+      .to eq(recipe_attributes)
   end
 
   it 'creates ingredients with correct attributes' do

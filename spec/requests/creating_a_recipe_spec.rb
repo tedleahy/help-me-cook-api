@@ -1,27 +1,29 @@
 require 'rails_helper'
 
 describe 'Creating a Recipe' do
-  subject(:response_message) do
+  subject(:api_response) do
     headers = { 'CONTENT_TYPE' => 'application/json' }
     post '/recipes/create', params: recipe_json, headers: headers
-    JSON.parse(response.body)['message']
+    JSON.parse(response.body)
   end
 
   context 'when POSTing valid JSON' do
     let(:recipe) { attributes_for(:recipe) }
     let(:recipe_json) do
-      {
-        name: recipe[:name],
-        image_url: recipe[:image_url],
-        ingredients: [
-          { name: 'ingredient 1', amount: 1, amount_unit: 'g' },
-          { name: 'ingredient 2' }
-        ]
-      }.to_json
+      recipe.merge({
+                     ingredients: [
+                       { name: 'ingredient 1', amount: 1, amount_unit: 'g' },
+                       { name: 'ingredient 2', amount: nil, amount_unit: nil }
+                     ]
+                   }).to_json
     end
 
-    it 'returns a message stating that the recipe was created' do
-      expect(response_message).to eq("New recipe #{recipe[:name]} successfully created")
+    it 'returns the created recipe as JSON' do
+      returned_recipe = api_response['data']['attributes']
+      # ignore the id, as we can't know what it will be before it's returned
+      returned_recipe['ingredients'].map! { |ingredient| ingredient.except('id') }
+
+      expect(returned_recipe).to eq(JSON.parse(recipe_json))
     end
   end
 
@@ -29,7 +31,7 @@ describe 'Creating a Recipe' do
     let(:recipe_json) { { name: nil, image_url: nil, ingredients: [] }.to_json }
 
     it 'returns a message stating that there was an error' do
-      expect(response_message).to eq('Error creating recipe')
+      expect(api_response).to eq({ 'message' => 'Error creating recipe' })
     end
   end
 end
